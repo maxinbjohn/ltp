@@ -182,8 +182,6 @@ static void setup(void)
 
 	tst_require_root();
 
-	tst_tmpdir();
-
 	/* Test for xattr support */
 	fd = creat("testfile", 0644);
 	if (fd == -1)
@@ -232,7 +230,13 @@ static void setup(void)
 
 static void cleanup(void)
 {
-	tst_rmdir();
+	unlink(FILENAME);
+	unlink(SYMLINK);
+	unlink(FIFO);
+	unlink(CHR);
+	unlink(BLK);
+	unlink(SOCK);
+	rmdir(DIRNAME);
 }
 #else /* HAVE_SYS_XATTR_H */
 int main(int argc, char *argv[])

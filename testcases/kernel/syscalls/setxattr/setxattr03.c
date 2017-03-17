@@ -164,8 +164,6 @@ static void setup(void)
 
 	tst_require_root();
 
-	tst_tmpdir();
-
 	/* Test for xattr support */
 	fd = creat("testfile", 0644);
 	if (fd == -1)
@@ -208,7 +206,8 @@ static void cleanup(void)
 	close(immu_fd);
 	close(append_fd);
 
-	tst_rmdir();
+	unlink(IMMU_FILE);
+	unlink(APPEND_FILE);
 }
 #else
 int main(void)
